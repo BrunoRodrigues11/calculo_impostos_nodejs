@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora de Impostos</title>
+</head>
+<body>
+    <h1>Calculadora de Impostos</h1>
+    <form id="calcForm">
+        <label for="valorProduto">Valor do Produto:</label>
+        <input type="number" id="valorProduto" required>
+
+        <button type="submit">Calcular</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <script>
+        // Manipulação do formulário e chamada à API
+        document.getElementById('calcForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const valorProduto = parseFloat(document.getElementById('valorProduto').value);
+            
+            // Chamada à API do back-end
+            fetch('/api/calculo-icms', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ valorProduto })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Exibição do resultado
+                document.getElementById('resultado').innerText = `Valor do ICMS: R$ ${data.icms.toFixed(2)}`;
+            })
+            .catch(error => {
+                console.error('Ocorreu um erro:', error);
+            });
+        });
+    </script>
+</body>
+</html>
