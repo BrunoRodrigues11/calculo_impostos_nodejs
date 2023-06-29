@@ -5,7 +5,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Define o diretório onde estão os arquivos estáticos do front-end
-app.use(express.static('frontend'));
+app.use(express.static('../frontend'));
 
 // Definição das constantes de alíquota
 const ALIQUOTA_ICMS = 0.18; // Exemplo de alíquota de ICMS
